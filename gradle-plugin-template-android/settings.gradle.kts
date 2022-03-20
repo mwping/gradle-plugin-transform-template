@@ -1,3 +1,3 @@
-rootProject.name = "gradle-plugin-template-android"
+rootProject.name = "gradle-plugin-transform-template"
 
-include("template-android")
+include("transform-template")

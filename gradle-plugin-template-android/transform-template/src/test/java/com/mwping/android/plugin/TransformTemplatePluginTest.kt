@@ -4,7 +4,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert
 import org.junit.Test
 
-class AndroidTemplatePluginTest {
+class TransformTemplatePluginTest {
     @Test
     fun pluginRegistersATask() {
         // Create a test project and apply the plugin

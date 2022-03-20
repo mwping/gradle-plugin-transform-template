@@ -17,6 +17,7 @@ dependencies {
     testImplementation("junit:junit:4.13")
     implementation("com.android.tools.build:gradle:7.1.2")
     implementation(gradleApi())
+    implementation("com.google.firebase:perf-plugin:1.4.1")
 }
 
 group = "com.mwping.android.plugin"
@@ -25,8 +26,8 @@ version = "1.0.0"
 gradlePlugin {
     // Define the plugin
     val greeting by plugins.creating {
-        id = "$group.template-android"
-        implementationClass = "com.mwping.android.plugin.AndroidTemplatePlugin"
+        id = "$group.transform-template"
+        implementationClass = "com.mwping.android.plugin.TransformTemplatePlugin"
     }
 }
 
