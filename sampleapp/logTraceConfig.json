@@ -5,7 +5,12 @@
     {
       "className": "android.app.Activity",
       "classMatchType": "Extends",
-      "methodName": "*"
+      "includeMethods": [
+        "onCreate",
+        "onStart",
+        "onResume",
+        "onDestroy"
+      ]
     }
   ]
 }

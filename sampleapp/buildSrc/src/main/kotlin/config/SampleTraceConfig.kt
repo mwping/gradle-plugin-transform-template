@@ -7,6 +7,5 @@ package config
 data class SampleTraceConfig(
     val traceClass: String,
     val traceManagerClass: String,
-    val includes: List<ClassMethodInfo>?,
-    val excludes: List<ClassMethodInfo>?,
+    val includes: List<ClassMethodInfo>?
 )

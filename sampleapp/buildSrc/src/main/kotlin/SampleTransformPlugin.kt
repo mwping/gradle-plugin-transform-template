@@ -2,8 +2,6 @@ import com.android.build.api.instrumentation.FramesComputationMode
 import com.android.build.api.instrumentation.InstrumentationScope
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationVariant
-import com.google.gson.Gson
-import config.SampleTraceConfig
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
@@ -26,7 +24,7 @@ class SampleTransformPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            check(foundApplicationPlugin) { "SampleTransformPlugin must only be used with Android application projects. Need to apply the 'com.android.application' plugin with this plugin." }
+            check(foundApplicationPlugin) { "${this@SampleTransformPlugin.javaClass.simpleName} must only be used with Android application projects. Need to apply the 'com.android.application' plugin with this plugin." }
         }
     }
 

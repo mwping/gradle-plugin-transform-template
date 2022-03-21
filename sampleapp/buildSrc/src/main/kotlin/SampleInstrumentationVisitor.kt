@@ -1,4 +1,6 @@
 import com.google.firebase.perf.plugin.instrumentation.model.ClassInfo
+import config.ClassMethodInfo
+import config.SampleTraceConfigManager.classMapping
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Type
@@ -12,6 +14,16 @@ class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
     ClassVisitor(api, classVisitor) {
     private val rootClassVisitor = classVisitor
     private val classInfo = ClassInfo()
+    private val matchClassInfo by lazy {
+        classMapping.keys.find { classData ->
+            classData.className == classInfo.type.className
+        }?.let {
+            val info = classMapping[it]
+            classMapping.remove(it)
+            info
+        }
+    }
+
     override fun visit(
         version: Int,
         access: Int,
@@ -35,6 +47,7 @@ class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
         val rootMethodVisitor: MethodVisitor =
             rootClassVisitor.visitMethod(access, methodName, methodDesc, signature, exceptions)
         return TemplatePerfMethodVisitor(
+            this.matchClassInfo,
             this.classInfo,
             this.api,
             rootMethodVisitor,
@@ -45,6 +58,7 @@ class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
     }
 
     class TemplatePerfMethodVisitor(
+        private val matchClassInfo: ClassMethodInfo?,
         private val classInfo: ClassInfo,
         api: Int,
         methodVisitor: MethodVisitor?,
@@ -52,12 +66,16 @@ class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
         private val perfMethodName: String,
         perfMethodDesc: String?
     ) : AdviceAdapter(api, methodVisitor, access, perfMethodName, perfMethodDesc) {
-        private val templateTrace = TemplateTrace(this)
+        private val templateTrace = SampleTrace(this)
         private var traceAdded = false
         override fun onMethodEnter() {
             super.onMethodEnter()
-            templateTrace.start(this.classInfo.type.className, this.perfMethodName)
-            traceAdded = true
+            matchClassInfo?.includeMethods?.find {
+                it == "*" || perfMethodName.startsWith(it)
+            }?.also {
+                templateTrace.start(this.classInfo.type.className, this.perfMethodName)
+                traceAdded = true
+            }
         }
 
         override fun onMethodExit(opcode: Int) {
@@ -65,16 +83,6 @@ class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
             if (traceAdded) {
                 templateTrace.stop()
             }
-        }
-
-        override fun visitMethodInsn(
-            opcodeAndSource: Int,
-            owner: String?,
-            name: String?,
-            descriptor: String?,
-            isInterface: Boolean
-        ) {
-            super.visitMethodInsn(opcodeAndSource, owner, name, descriptor, isInterface)
         }
     }
 }

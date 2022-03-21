@@ -23,6 +23,5 @@ abstract class SampleTraceClassVisitorFactory : AsmClassVisitorFactory<None> {
 
     override fun isInstrumentable(@Nonnull classData: ClassData): Boolean {
         return classData.isInstrumentable()
-
     }
 }

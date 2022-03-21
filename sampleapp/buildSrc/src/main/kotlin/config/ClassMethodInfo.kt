@@ -6,6 +6,6 @@ package config
  */
 data class ClassMethodInfo(
     val className: String,
-    val classMatchType: MatchType,
-    val methodName: String
+    val classMatchType: ClassMatchType,
+    val includeMethods: List<String>?
 )
