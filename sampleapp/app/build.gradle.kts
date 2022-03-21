@@ -4,7 +4,7 @@ plugins {
     id("com.google.gms.google-services")
 //    id "com.mwping.android.plugin.transform-template"
 }
-apply<TransformTemplatePlugin>()
+apply<SampleTransformPlugin>()
 
 android {
     compileSdk = 31
