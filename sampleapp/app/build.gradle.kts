@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("com.google.gms.google-services")
 //    id "com.mwping.android.plugin.transform-template"
 }
 apply<SampleTransformPlugin>()
@@ -45,7 +44,5 @@ dependencies {
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    implementation(platform("com.google.firebase:firebase-bom:29.1.0"))
-    implementation("com.google.firebase:firebase-perf-ktx")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
 }

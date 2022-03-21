@@ -1,6 +1,6 @@
-import com.google.firebase.perf.plugin.instrumentation.model.ClassInfo
 import config.ClassMethodInfo
 import config.SampleTraceConfigManager.classMapping
+import model.ClassInfo
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Type
@@ -13,7 +13,7 @@ import org.objectweb.asm.commons.AdviceAdapter
 class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
     ClassVisitor(api, classVisitor) {
     private val rootClassVisitor = classVisitor
-    private val classInfo = ClassInfo()
+    private lateinit var classInfo: ClassInfo
     private val matchClassInfo by lazy {
         classMapping.keys.find { classData ->
             classData.className == classInfo.type.className
@@ -33,8 +33,7 @@ class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
         interfaces: Array<out String>?
     ) {
         super.visit(version, access, className, signature, superName, interfaces)
-        classInfo.type = Type.getObjectType(className)
-        classInfo.interfaces = interfaces
+        classInfo = ClassInfo(Type.getObjectType(className))
     }
 
     override fun visitMethod(
