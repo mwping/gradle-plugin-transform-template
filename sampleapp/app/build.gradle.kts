@@ -1,9 +1,8 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-//    id "com.mwping.android.plugin.transform-template"
+    id("com.mwping.android.plugin.transform-template")
 }
-apply<SampleTransformPlugin>()
 
 android {
     compileSdk = 31

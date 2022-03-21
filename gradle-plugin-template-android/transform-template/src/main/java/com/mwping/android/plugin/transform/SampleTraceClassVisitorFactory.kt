@@ -1,8 +1,10 @@
+package com.mwping.android.plugin.transform
+
 import com.android.build.api.instrumentation.AsmClassVisitorFactory
 import com.android.build.api.instrumentation.ClassContext
 import com.android.build.api.instrumentation.ClassData
 import com.android.build.api.instrumentation.InstrumentationParameters.None
-import config.isInstrumentable
+import com.mwping.android.plugin.transform.config.isInstrumentable
 import org.objectweb.asm.ClassVisitor
 import javax.annotation.Nonnull
 

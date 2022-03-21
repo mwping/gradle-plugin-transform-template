@@ -17,7 +17,16 @@ dependencies {
     testImplementation("junit:junit:4.13")
     implementation("com.android.tools.build:gradle:7.1.2")
     implementation(gradleApi())
-    implementation("com.google.firebase:perf-plugin:1.4.1")
+
+    // Open this line to learn plugin develop
+    // implementation("com.google.firebase:perf-plugin:1.4.1")
+
+    val asmVersion = "9.1"
+    implementation("org.ow2.asm:asm:$asmVersion")
+    implementation("org.ow2.asm:asm-commons:${asmVersion}")
+
+    implementation("com.google.code.gson:gson:2.9.0")
+
 }
 
 group = "com.mwping.android.plugin"
@@ -27,7 +36,7 @@ gradlePlugin {
     // Define the plugin
     val greeting by plugins.creating {
         id = "$group.transform-template"
-        implementationClass = "com.mwping.android.plugin.TransformTemplatePlugin"
+        implementationClass = "com.mwping.android.plugin.transform.SampleTransformPlugin"
     }
 }
 

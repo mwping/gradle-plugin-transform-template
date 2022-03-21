@@ -1,4 +1,4 @@
-package model
+package com.mwping.android.plugin.transform.model
 
 import org.objectweb.asm.Type
 

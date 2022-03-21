@@ -1,3 +1,5 @@
+package com.mwping.android.plugin.transform
+
 import com.android.build.api.instrumentation.FramesComputationMode
 import com.android.build.api.instrumentation.InstrumentationScope
 import com.android.build.api.variant.AndroidComponentsExtension

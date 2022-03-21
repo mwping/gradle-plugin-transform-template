@@ -1,4 +1,4 @@
-package config
+package com.mwping.android.plugin.transform.config
 
 /**
  * weiping@atlasv.com

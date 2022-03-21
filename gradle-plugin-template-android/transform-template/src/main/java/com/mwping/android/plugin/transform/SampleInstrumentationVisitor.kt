@@ -1,6 +1,7 @@
-import config.ClassMethodInfo
-import config.SampleTraceConfigManager.classMapping
-import model.ClassInfo
+package com.mwping.android.plugin.transform
+import com.mwping.android.plugin.transform.config.ClassMethodInfo
+import com.mwping.android.plugin.transform.config.SampleTraceConfigManager.classMapping
+import com.mwping.android.plugin.transform.model.ClassInfo
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Type

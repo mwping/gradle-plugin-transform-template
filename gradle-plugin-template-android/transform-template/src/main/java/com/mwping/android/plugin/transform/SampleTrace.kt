@@ -1,6 +1,8 @@
-import config.SampleTraceConfigManager.traceClassName
-import config.SampleTraceConfigManager.traceManagerClassName
-import config.SampleTraceConfigManager.traceStartMethodDesc
+package com.mwping.android.plugin.transform
+
+import com.mwping.android.plugin.transform.config.SampleTraceConfigManager.traceClassName
+import com.mwping.android.plugin.transform.config.SampleTraceConfigManager.traceManagerClassName
+import com.mwping.android.plugin.transform.config.SampleTraceConfigManager.traceStartMethodDesc
 import org.objectweb.asm.Type
 import org.objectweb.asm.commons.AdviceAdapter
 import org.objectweb.asm.commons.Method

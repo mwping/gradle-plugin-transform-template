@@ -1,10 +1,10 @@
-package config
+package com.mwping.android.plugin.transform.config
 
-import SampleTransformPlugin
 import com.android.build.api.instrumentation.ClassData
 import com.google.gson.Gson
-import config.SampleTraceConfigManager.classMapping
-import config.SampleTraceConfigManager.includes
+import com.mwping.android.plugin.transform.SampleTransformPlugin
+import com.mwping.android.plugin.transform.config.SampleTraceConfigManager.classMapping
+import com.mwping.android.plugin.transform.config.SampleTraceConfigManager.includes
 
 /**
  * weiping@atlasv.com
