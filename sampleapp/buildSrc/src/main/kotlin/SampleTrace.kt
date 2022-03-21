@@ -6,24 +6,19 @@ import org.objectweb.asm.commons.Method
  * weiping@atlasv.com
  * 2022/3/21
  */
-private const val TRACE_CLASS_NAME = "com/mwping/android/plugin/sampleapp/LogTrace"
-private const val LOG_UTILS_CLASS_NAME = "com/mwping/android/plugin/sampleapp/LogUtils"
 private const val LOG_START_METHOD_NAME_START = "start"
 private const val LOG_START_METHOD_NAME_STOP = "stop"
-private const val LOG_START_METHOD_DESC =
-    "(Ljava/lang/String;Ljava/lang/String;)Lcom/mwping/android/plugin/sampleapp/LogTrace;"
 
 class TemplateTrace(private val adviceAdapter: AdviceAdapter) {
-    private val classType: Type =
-        Type.getObjectType(TRACE_CLASS_NAME)
+    private val classType: Type = Type.getObjectType(SampleTransformPlugin.traceClassName)
     private var timerLocalIndex = -1
     fun start(className: String, methodName: String) {
         timerLocalIndex = this.adviceAdapter.newLocal(classType)
         this.adviceAdapter.push(className)
         this.adviceAdapter.push(methodName)
         this.adviceAdapter.invokeStatic(
-            Type.getObjectType(LOG_UTILS_CLASS_NAME),
-            Method(LOG_START_METHOD_NAME_START, LOG_START_METHOD_DESC)
+            Type.getObjectType(SampleTransformPlugin.traceManagerClassName),
+            Method(LOG_START_METHOD_NAME_START, SampleTransformPlugin.traceStartMethodDesc)
         )
         this.adviceAdapter.storeLocal(timerLocalIndex)
     }

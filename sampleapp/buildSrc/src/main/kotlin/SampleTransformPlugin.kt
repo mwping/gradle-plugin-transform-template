@@ -2,9 +2,11 @@ import com.android.build.api.instrumentation.FramesComputationMode
 import com.android.build.api.instrumentation.InstrumentationScope
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationVariant
+import com.google.gson.Gson
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
+import java.io.File
 
 /**
  * weiping@atlasv.com
@@ -16,8 +18,12 @@ class SampleTransformPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.pluginManager.withPlugin("com.android.application") {
             foundApplicationPlugin = true
+            val logTraceConfigFilePath = project.property("logTraceConfigFile")?.toString()
+                ?: error("Please add:logTraceConfigFilePath=your-config-file-path in file gradle.properties")
+            configFile = File(logTraceConfigFilePath)
             this@SampleTransformPlugin.perform(project)
         }
+
         project.afterEvaluate {
             check(foundApplicationPlugin) { "SampleTransformPlugin must only be used with Android application projects. Need to apply the 'com.android.application' plugin with this plugin." }
         }
@@ -41,5 +47,21 @@ class SampleTransformPlugin : Plugin<Project> {
             InstrumentationScope.ALL
         ) { }
         appVariant.setAsmFramesComputationMode(FramesComputationMode.COMPUTE_FRAMES_FOR_INSTRUMENTED_CLASSES)
+    }
+
+    companion object {
+        lateinit var configFile: File
+        val traceConfig by lazy {
+            Gson().fromJson(configFile.readText(), SampleTraceConfig::class.java)
+        }
+        val traceClassName by lazy {
+            traceConfig.traceClass.replace(".", "/")
+        }
+        val traceManagerClassName by lazy {
+            traceConfig.traceManagerClass.replace(".", "/")
+        }
+        val traceStartMethodDesc by lazy {
+            "(Ljava/lang/String;Ljava/lang/String;)L$traceClassName;"
+        }
     }
 }

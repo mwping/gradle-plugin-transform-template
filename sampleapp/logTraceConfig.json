@@ -1,0 +1,4 @@
+{
+  "traceClass": "com.mwping.android.plugin.sampleapp.LogTrace",
+  "traceManagerClass": "com.mwping.android.plugin.sampleapp.LogUtils"
+}
