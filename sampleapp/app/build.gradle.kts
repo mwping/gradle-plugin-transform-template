@@ -47,4 +47,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     implementation(platform("com.google.firebase:firebase-bom:29.1.0"))
     implementation("com.google.firebase:firebase-perf-ktx")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
 }
