@@ -56,7 +56,7 @@ class SampleInstrumentationVisitor(api: Int, classVisitor: ClassVisitor) :
         private var traceAdded = false
         override fun onMethodEnter() {
             super.onMethodEnter()
-            templateTrace.start(this.classInfo.type.className.substringAfterLast(".") + "_" + this.perfMethodName)
+            templateTrace.start(this.classInfo.type.className, this.perfMethodName)
             traceAdded = true
         }
 

@@ -11,15 +11,16 @@ private const val LOG_UTILS_CLASS_NAME = "com/mwping/android/plugin/sampleapp/Lo
 private const val LOG_START_METHOD_NAME_START = "start"
 private const val LOG_START_METHOD_NAME_STOP = "stop"
 private const val LOG_START_METHOD_DESC =
-    "(Ljava/lang/String;)Lcom/mwping/android/plugin/sampleapp/LogTrace;"
+    "(Ljava/lang/String;Ljava/lang/String;)Lcom/mwping/android/plugin/sampleapp/LogTrace;"
 
 class TemplateTrace(private val adviceAdapter: AdviceAdapter) {
     private val classType: Type =
         Type.getObjectType(TRACE_CLASS_NAME)
     private var timerLocalIndex = -1
-    fun start(timerName: String) {
+    fun start(className: String, methodName: String) {
         timerLocalIndex = this.adviceAdapter.newLocal(classType)
-        this.adviceAdapter.push(timerName)
+        this.adviceAdapter.push(className)
+        this.adviceAdapter.push(methodName)
         this.adviceAdapter.invokeStatic(
             Type.getObjectType(LOG_UTILS_CLASS_NAME),
             Method(LOG_START_METHOD_NAME_START, LOG_START_METHOD_DESC)

@@ -5,7 +5,7 @@ package com.mwping.android.plugin.sampleapp;
  * 2022/3/21
  */
 class LogUtils {
-    public static LogTrace start(String name) {
-        return new LogTrace(name).start();
+    public static LogTrace start(String className, String methodName) {
+        return new LogTrace(className, methodName).start();
     }
 }
