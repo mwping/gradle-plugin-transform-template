@@ -2,6 +2,7 @@ import com.android.build.api.instrumentation.AsmClassVisitorFactory
 import com.android.build.api.instrumentation.ClassContext
 import com.android.build.api.instrumentation.ClassData
 import com.android.build.api.instrumentation.InstrumentationParameters.None
+import config.isInstrumentable
 import org.objectweb.asm.ClassVisitor
 import javax.annotation.Nonnull
 
@@ -21,9 +22,7 @@ abstract class SampleTraceClassVisitorFactory : AsmClassVisitorFactory<None> {
     }
 
     override fun isInstrumentable(@Nonnull classData: ClassData): Boolean {
-        return classData.superClasses.contains("android.app.Activity")
-                && !classData.className.startsWith("android.")
-                && !classData.className.startsWith("androidx.")
+        return classData.isInstrumentable()
 
     }
 }

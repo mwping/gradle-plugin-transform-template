@@ -3,6 +3,7 @@ import com.android.build.api.instrumentation.InstrumentationScope
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationVariant
 import com.google.gson.Gson
+import config.SampleTraceConfig
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
@@ -51,17 +52,5 @@ class SampleTransformPlugin : Plugin<Project> {
 
     companion object {
         lateinit var configFile: File
-        val traceConfig by lazy {
-            Gson().fromJson(configFile.readText(), SampleTraceConfig::class.java)
-        }
-        val traceClassName by lazy {
-            traceConfig.traceClass.replace(".", "/")
-        }
-        val traceManagerClassName by lazy {
-            traceConfig.traceManagerClass.replace(".", "/")
-        }
-        val traceStartMethodDesc by lazy {
-            "(Ljava/lang/String;Ljava/lang/String;)L$traceClassName;"
-        }
     }
 }

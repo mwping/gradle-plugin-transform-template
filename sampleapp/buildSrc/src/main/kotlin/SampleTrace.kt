@@ -1,3 +1,4 @@
+import config.SampleTraceConfigManager
 import org.objectweb.asm.Type
 import org.objectweb.asm.commons.AdviceAdapter
 import org.objectweb.asm.commons.Method
@@ -10,15 +11,15 @@ private const val LOG_START_METHOD_NAME_START = "start"
 private const val LOG_START_METHOD_NAME_STOP = "stop"
 
 class TemplateTrace(private val adviceAdapter: AdviceAdapter) {
-    private val classType: Type = Type.getObjectType(SampleTransformPlugin.traceClassName)
+    private val classType: Type = Type.getObjectType(SampleTraceConfigManager.traceClassName)
     private var timerLocalIndex = -1
     fun start(className: String, methodName: String) {
         timerLocalIndex = this.adviceAdapter.newLocal(classType)
         this.adviceAdapter.push(className)
         this.adviceAdapter.push(methodName)
         this.adviceAdapter.invokeStatic(
-            Type.getObjectType(SampleTransformPlugin.traceManagerClassName),
-            Method(LOG_START_METHOD_NAME_START, SampleTransformPlugin.traceStartMethodDesc)
+            Type.getObjectType(SampleTraceConfigManager.traceManagerClassName),
+            Method(LOG_START_METHOD_NAME_START, SampleTraceConfigManager.traceStartMethodDesc)
         )
         this.adviceAdapter.storeLocal(timerLocalIndex)
     }
